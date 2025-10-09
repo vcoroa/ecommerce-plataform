@@ -1,0 +1,344 @@
+{
+  "_type": "export",
+  "__export_format": 4,
+  "__export_date": "2025-10-08T00:00:00.000Z",
+  "__export_source": "insomnia.desktop.app:v2023.5.8",
+  "resources": [
+    {
+      "_id": "wrk_ecommerce",
+      "_type": "workspace",
+      "name": "E-commerce Platform",
+      "description": "API Testing for E-commerce Platform"
+    },
+    {
+      "_id": "env_base",
+      "_type": "environment",
+      "name": "Base Environment",
+      "data": {
+        "base_url": "http://localhost:8080/api",
+        "token": "",
+        "product_uuid": "",
+        "order_uuid": ""
+      },
+      "parentId": "wrk_ecommerce"
+    },
+    {
+      "_id": "req_register",
+      "_type": "request",
+      "parentId": "fld_auth",
+      "name": "Register User",
+      "method": "POST",
+      "url": "{{ _.base_url }}/auth/register",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"username\": \"john_doe\",\n  \"email\": \"john@example.com\",\n  \"password\": \"SecurePass123!\",\n  \"role\": \"USER\"\n}"
+      },
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ]
+    },
+    {
+      "_id": "req_register_admin",
+      "_type": "request",
+      "parentId": "fld_auth",
+      "name": "Register Admin",
+      "method": "POST",
+      "url": "{{ _.base_url }}/auth/register",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"username\": \"admin\",\n  \"email\": \"admin@example.com\",\n  \"password\": \"AdminPass123!\",\n  \"role\": \"ADMIN\"\n}"
+      },
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ]
+    },
+    {
+      "_id": "req_login",
+      "_type": "request",
+      "parentId": "fld_auth",
+      "name": "Login",
+      "method": "POST",
+      "url": "{{ _.base_url }}/auth/login",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"username\": \"john_doe\",\n  \"password\": \"SecurePass123!\"\n}"
+      },
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ]
+    },
+    {
+      "_id": "req_login_admin",
+      "_type": "request",
+      "parentId": "fld_auth",
+      "name": "Login Admin",
+      "method": "POST",
+      "url": "{{ _.base_url }}/auth/login",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"username\": \"admin\",\n  \"password\": \"AdminPass123!\"\n}"
+      },
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ]
+    },
+    {
+      "_id": "req_create_product",
+      "_type": "request",
+      "parentId": "fld_products",
+      "name": "Create Product",
+      "method": "POST",
+      "url": "{{ _.base_url }}/products",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"name\": \"MacBook Pro M3\",\n  \"description\": \"Apple MacBook Pro 14-inch with M3 chip\",\n  \"price\": 1999.99,\n  \"category\": \"ELECTRONICS\",\n  \"stockQuantity\": 50\n}"
+      },
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ _.token }}"
+        }
+      ]
+    },
+    {
+      "_id": "req_create_product_2",
+      "_type": "request",
+      "parentId": "fld_products",
+      "name": "Create Product - Smartphone",
+      "method": "POST",
+      "url": "{{ _.base_url }}/products",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"name\": \"iPhone 15 Pro\",\n  \"description\": \"Apple iPhone 15 Pro 256GB\",\n  \"price\": 1199.99,\n  \"category\": \"ELECTRONICS\",\n  \"stockQuantity\": 100\n}"
+      },
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ _.token }}"
+        }
+      ]
+    },
+    {
+      "_id": "req_create_product_3",
+      "_type": "request",
+      "parentId": "fld_products",
+      "name": "Create Product - Headphones",
+      "method": "POST",
+      "url": "{{ _.base_url }}/products",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"name\": \"AirPods Pro\",\n  \"description\": \"Apple AirPods Pro with Active Noise Cancellation\",\n  \"price\": 249.99,\n  \"category\": \"ELECTRONICS\",\n  \"stockQuantity\": 200\n}"
+      },
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ _.token }}"
+        }
+      ]
+    },
+    {
+      "_id": "req_get_product",
+      "_type": "request",
+      "parentId": "fld_products",
+      "name": "Get Product by UUID",
+      "method": "GET",
+      "url": "{{ _.base_url }}/products/{{ _.product_uuid }}",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ _.token }}"
+        }
+      ]
+    },
+    {
+      "_id": "req_update_product",
+      "_type": "request",
+      "parentId": "fld_products",
+      "name": "Update Product",
+      "method": "PUT",
+      "url": "{{ _.base_url }}/products/{{ _.product_uuid }}",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"name\": \"MacBook Pro M3 Pro\",\n  \"description\": \"Apple MacBook Pro 14-inch with M3 Pro chip - Updated\",\n  \"price\": 2299.99,\n  \"category\": \"ELECTRONICS\",\n  \"stockQuantity\": 45\n}"
+      },
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ _.token }}"
+        }
+      ]
+    },
+    {
+      "_id": "req_delete_product",
+      "_type": "request",
+      "parentId": "fld_products",
+      "name": "Delete Product",
+      "method": "DELETE",
+      "url": "{{ _.base_url }}/products/{{ _.product_uuid }}",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ _.token }}"
+        }
+      ]
+    },
+    {
+      "_id": "req_search_products",
+      "_type": "request",
+      "parentId": "fld_products",
+      "name": "Search Products",
+      "method": "GET",
+      "url": "{{ _.base_url }}/products/search?query=macbook",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ _.token }}"
+        }
+      ]
+    },
+    {
+      "_id": "req_create_order",
+      "_type": "request",
+      "parentId": "fld_orders",
+      "name": "Create Order",
+      "method": "POST",
+      "url": "{{ _.base_url }}/orders",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"items\": [\n    {\n      \"productId\": \"REPLACE_WITH_PRODUCT_UUID\",\n      \"quantity\": 2\n    },\n    {\n      \"productId\": \"REPLACE_WITH_ANOTHER_PRODUCT_UUID\",\n      \"quantity\": 1\n    }\n  ]\n}"
+      },
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ _.token }}"
+        }
+      ]
+    },
+    {
+      "_id": "req_pay_order",
+      "_type": "request",
+      "parentId": "fld_orders",
+      "name": "Pay Order",
+      "method": "POST",
+      "url": "{{ _.base_url }}/orders/{{ _.order_uuid }}/pay",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ _.token }}"
+        }
+      ]
+    },
+    {
+      "_id": "req_get_my_orders",
+      "_type": "request",
+      "parentId": "fld_orders",
+      "name": "Get My Orders",
+      "method": "GET",
+      "url": "{{ _.base_url }}/orders/my-orders?page=0&size=10",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ _.token }}"
+        }
+      ]
+    },
+    {
+      "_id": "req_top_users",
+      "_type": "request",
+      "parentId": "fld_reports",
+      "name": "Top 5 Users by Purchase",
+      "method": "GET",
+      "url": "{{ _.base_url }}/reports/top-users?startDate=2024-01-01&endDate=2025-12-31",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ _.token }}"
+        }
+      ]
+    },
+    {
+      "_id": "req_avg_ticket",
+      "_type": "request",
+      "parentId": "fld_reports",
+      "name": "Average Ticket per User",
+      "method": "GET",
+      "url": "{{ _.base_url }}/reports/avg-ticket?startDate=2024-01-01&endDate=2025-12-31",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ _.token }}"
+        }
+      ]
+    },
+    {
+      "_id": "req_monthly_revenue",
+      "_type": "request",
+      "parentId": "fld_reports",
+      "name": "Current Month Revenue",
+      "method": "GET",
+      "url": "{{ _.base_url }}/reports/monthly-revenue",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ _.token }}"
+        }
+      ]
+    },
+    {
+      "_id": "fld_auth",
+      "_type": "request_group",
+      "parentId": "wrk_ecommerce",
+      "name": "1. Authentication"
+    },
+    {
+      "_id": "fld_products",
+      "_type": "request_group",
+      "parentId": "wrk_ecommerce",
+      "name": "2. Products"
+    },
+    {
+      "_id": "fld_orders",
+      "_type": "request_group",
+      "parentId": "wrk_ecommerce",
+      "name": "3. Orders"
+    },
+    {
+      "_id": "fld_reports",
+      "_type": "request_group",
+      "parentId": "wrk_ecommerce",
+      "name": "4. Reports (ADMIN only)"
+    }
+  ]
+}
