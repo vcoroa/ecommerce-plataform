@@ -1,0 +1,29 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:ecommerce;MODE=MYSQL;DB_CLOSE_DELAY=-1
+    driverClassName: org.h2.Driver
+    username: sa
+    password: password
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+  main:
+    allow-bean-definition-overriding: true
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.data.elasticsearch.ElasticsearchDataAutoConfiguration
+      - org.springframework.boot.autoconfigure.data.elasticsearch.ElasticsearchRepositoriesAutoConfiguration
+      - org.springframework.boot.autoconfigure.elasticsearch.ElasticsearchClientAutoConfiguration
+      - org.springframework.boot.autoconfigure.kafka.KafkaAutoConfiguration
+
+jwt:
+  secret: VGhpcy1pcy1hLXRlc3Qtc2VjcmV0LWtleS10aGF0LXNob3VsZC1iZS1sb25nLWVub3VnaC1mb3ItSFM1NjEyMw==
+  expiration: 3600000
+
+logging:
+  level:
+    root: WARN
+    org.springframework.test: INFO
