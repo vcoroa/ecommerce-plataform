@@ -228,20 +228,35 @@ Authorization: Bearer {token}
 
 ## 🏗️ Arquitetura
 
+O projeto segue uma **arquitetura em camadas** (Clean Architecture), separando responsabilidades:
+
 ```
-ecommerce-platform/
-├── src/main/java/br/com/vcoroa/
-│   ├── config/          # Configurações (Security, Kafka, Elasticsearch)
-│   ├── controller/      # Controllers REST
-│   ├── dto/             # Data Transfer Objects
-│   ├── entity/          # Entidades JPA
-│   ├── document/        # Documentos Elasticsearch
-│   ├── repository/      # Repositórios (JPA e Elasticsearch)
-│   ├── service/         # Lógica de negócio
-│   ├── security/        # JWT e autenticação
-│   ├── kafka/           # Producers e Consumers
-│   └── exception/       # Tratamento de exceções
-└── src/test/           # Testes unitários e de integração
+src/main/java/br/com/vcoroa/ecommerce/platform/
+│
+├── domain/                      # Camada de Domínio
+│   ├── entity/                 # Entidades (User, Product, Order, OrderItem, ProductDocument)
+│   ├── enums/                  # Enumerações (Role, OrderStatus)
+│   └── exception/              # Exceções de negócio
+│
+├── application/                 # Camada de Aplicação
+│   ├── dto/
+│   │   ├── request/           # DTOs de entrada
+│   │   ├── response/          # DTOs de saída
+│   │   └── criteria/          # Critérios de busca
+│   ├── mapper/                # Mappers (MapStruct)
+│   └── service/               # Serviços (lógica de negócio)
+│
+├── infrastructure/             # Camada de Infraestrutura
+│   ├── config/                # Configurações (Kafka, Elasticsearch)
+│   ├── repository/            # Repositórios JPA e Elasticsearch
+│   └── messaging/
+│       ├── consumer/          # Kafka Consumers
+│       └── event/             # Eventos Kafka
+│
+└── presentation/               # Camada de Apresentação
+    ├── controller/            # Controllers REST
+    ├── security/              # Security, JWT
+    └── exception/             # Exception Handlers
 ```
 
 ## 🧪 Testes
